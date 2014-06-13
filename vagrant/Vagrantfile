@@ -4,7 +4,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "ubuntu1204--toey-recommend"
+  config.vm.box = "ubuntu1204--toy-recommend"
   config.vm.box_url = "http://dl.dropbox.com/u/1537815/precise64.box"
 
   #vb.gui = true
