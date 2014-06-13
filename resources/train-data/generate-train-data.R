@@ -9,9 +9,9 @@ num.rows <- 10000
 train.data.fraction <- 0.2
 
 # generate data randomly
-data.A <- data.frame(A=rpois(num.rows, 6), B=rpois(num.rows, 3), C=rpois(num.rows, 1), label="A")
-data.B <- data.frame(A=rpois(num.rows, 1), B=rpois(num.rows, 2), C=rpois(num.rows, 7), label="B")
-data.C <- data.frame(A=rpois(num.rows, 1), B=rpois(num.rows, 8), C=rpois(num.rows, 1), label="C")
+data.A <- data.frame(label="A", A=rpois(num.rows, 6), B=rpois(num.rows, 3), C=rpois(num.rows, 1))
+data.B <- data.frame(label="B", A=rpois(num.rows, 1), B=rpois(num.rows, 2), C=rpois(num.rows, 7))
+data.C <- data.frame(label="C", A=rpois(num.rows, 1), B=rpois(num.rows, 8), C=rpois(num.rows, 1))
 
 # filter appropriate rows from the generated data
 data <- subset( rbind(data.A, data.B, data.C), A + B + C <= 10)
@@ -22,7 +22,12 @@ train.data      <- data[1:train.data.rows, ]
 test.data       <- data[(train.data.rows+1):nrow(data), ]
 
 # save data
-train.data.filename <- "train-data.tsv"
+train.data.filename <- "train-label.tsv"
+train.label.data.filename <- "train-data.tsv"
 test.data.filename  <- "test-data.tsv"
+test.label.data.filename <- "test-label.tsv"
+
 write.table(x=train.data, file=train.data.filename, col.names=FALSE, row.names=FALSE)
+write.table(x=train.data$label, file=train.label.data.filename, col.names=FALSE, row.names=FALSE)
 write.table(x=test.data, file=test.data.filename, col.names=FALSE, row.names=FALSE)
+write.table(x=test.data$label, file=test.label.data.filename, col.names=FALSE, row.names=FALSE)
