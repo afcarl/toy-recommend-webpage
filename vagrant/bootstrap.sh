@@ -16,13 +16,12 @@ $APT_GET_INSTALL mysql-server
 # git
 $APT_GET_INSTALL git
 # python
-$APT_GET_INSTALL python python-numpy python-scipy python-django python-mysqldb
+$APT_GET_INSTALL python python-numpy python-scipy python-django python-mysqldb python-nose python-matplotlib python-pip python-sklearn
 # misc
 $APT_GET_INSTALL screen bash-completion
 
 ## Django
-apt-get install python-django
-pip install Django==1.6.5
+#pip install Django==1.6.5
 
 ## Restart service(s)
 service mysql restart
