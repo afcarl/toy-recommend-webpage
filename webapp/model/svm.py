@@ -7,11 +7,14 @@ import warnings
 
 import numpy as np
 import pylab as pl
+import pickle
+import codecs
 from sklearn import svm 
 from sklearn import preprocessing
 
 class SVM():
     def __init__(self):
+        self.clf = svm.SVC(kernel='rbf', C=1)
         return
 
     def load_tsv_file(self, filepath):
@@ -29,6 +32,22 @@ class SVM():
         return le.transform(data)
 
     def train(self, data, labels):
-        clf = svm.SVC(kernel='rbf', C=1)
-        clf.fit(data, labels)
-        return clf
+        self.clf.fit(data, labels)
+        return self.clf
+
+    def dump_model(self, outfile):
+        pickled_string = pickle.dumps(self.clf)
+        file = open(outfile, 'wb')
+        file.write(pickled_string)
+        file.close
+        return pickled_string
+
+    def load_model_by_pickle(self, filepath):
+        file = open(filepath, "rb")
+        self.clf = pickle.load(file)
+        file.close
+        return self.clf
+
+    def predict_with_dumped_model(self, target, filepath):
+        clf = self.load_model_by_pickle(filepath)
+        return clf.predict(target)
