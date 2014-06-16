@@ -22,8 +22,8 @@ train.data      <- data[1:train.data.rows, ]
 test.data       <- data[(train.data.rows+1):nrow(data), ]
 
 # save data
-train.data.filename <- "train-label.tsv"
-train.label.data.filename <- "train-data.tsv"
+train.data.filename <- "train-data.tsv"
+train.label.data.filename <- "train-label.tsv"
 test.data.filename  <- "test-data.tsv"
 test.label.data.filename <- "test-label.tsv"
 
