@@ -9,9 +9,9 @@ num.rows <- 10000
 train.data.fraction <- 0.2
 
 # generate data randomly
-data.A <- data.frame(label="A", A=rpois(num.rows, 6), B=rpois(num.rows, 3), C=rpois(num.rows, 1))
-data.B <- data.frame(label="B", A=rpois(num.rows, 1), B=rpois(num.rows, 2), C=rpois(num.rows, 7))
-data.C <- data.frame(label="C", A=rpois(num.rows, 1), B=rpois(num.rows, 8), C=rpois(num.rows, 1))
+data.A <- data.frame(label=1, A=rpois(num.rows, 6), B=rpois(num.rows, 3), C=rpois(num.rows, 1))
+data.B <- data.frame(label=2, A=rpois(num.rows, 1), B=rpois(num.rows, 2), C=rpois(num.rows, 7))
+data.C <- data.frame(label=3, A=rpois(num.rows, 1), B=rpois(num.rows, 8), C=rpois(num.rows, 1))
 
 # filter appropriate rows from the generated data
 data <- subset( rbind(data.A, data.B, data.C), A + B + C <= 10)
