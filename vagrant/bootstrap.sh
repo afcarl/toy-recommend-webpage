@@ -21,8 +21,7 @@ $APT_GET_INSTALL redis-server
 # git
 $APT_GET_INSTALL git
 # python3
-$APT_GET_INSTALL python3 python3-dev python3-numpy python3-scipy
-#python-numpy python-scipy python-django python-mysqldb python-nose python-matplotlib python-pip python-sklearn
+$APT_GET_INSTALL python3 python3-dev python3-numpy python3-scipy python3-nose readline-common libreadline-dev
 # pip update
 $APT_GET_INSTALL curl libfreetype6 libfreetype6-dev libatlas-dev libatlas-base-dev build-essential
 curl -kL https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python3
@@ -37,7 +36,7 @@ for __PACKAGE in $__PIP_PACKAGES
     pip install "$__PACKAGE"
   done
 # misc
-$APT_GET_INSTALL screen bash-completion
+$APT_GET_INSTALL screen bash-completion vim
 
 ## apt
 #apt-get upgrade -y
