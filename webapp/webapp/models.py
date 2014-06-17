@@ -14,7 +14,10 @@ class AccessHistory(models.Model):
         try:
             instance.history_pickle =  pickle.loads(instance.history_pickle)
         except:
-            instance.history_pickle = instance.history_pickle
+            if isinstance(instance, AccessHistory):
+                instance.history_pickle = instance.get_history()
+            else:
+                instance.history_pickle = []
         instance.history_pickle = pickle.dumps(instance.history_pickle)
 
     def get_history(self):
