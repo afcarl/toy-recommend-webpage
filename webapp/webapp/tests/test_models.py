@@ -30,3 +30,9 @@ class TestAccessHistoryModel(TestCase):
         access_history.save()
         result = AccessHistory.objects.get(key="hoge")
         self.assertEqual(result.history_pickle, pickle.dumps("fuga"))
+
+    def test_get_history_with_pickled_array(self):
+        access_history = AccessHistory(key="hoge", history_pickle=pickle.dumps(["page-a", "page-b", "page-c", "page-a"]))
+        access_history.save()
+        result = AccessHistory.objects.get(key="hoge").get_history()
+        self.assertEqual(result, ['page-a', 'page-b', 'page-c', 'page-a'])
