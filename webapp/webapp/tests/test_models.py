@@ -36,3 +36,8 @@ class TestAccessHistoryModel(TestCase):
         access_history.save()
         result = AccessHistory.objects.get(key="hoge").get_history()
         self.assertEqual(result, ['page-a', 'page-b', 'page-c', 'page-a'])
+
+    def test_summarize_history(self):
+        access_history = AccessHistory(key="hoge", history_pickle=pickle.dumps(["page-a", "page-b", "page-c", "page-a"]))
+        result = access_history.summarize_history()
+        self.assertEqual(result, [2, 1, 1])

@@ -20,3 +20,12 @@ class AccessHistory(models.Model):
             return pickle.loads(self.history_pickle)
         except:
             return self.history_pickle
+
+    def summarize_history(self):
+        if isinstance(self.get_history(), list):
+            num_page_a = self.get_history().count("page-a")
+            num_page_b = self.get_history().count("page-b")
+            num_page_c = self.get_history().count("page-c")
+            return [num_page_a, num_page_b, num_page_c]
+        else:
+            return [0, 0, 0]
