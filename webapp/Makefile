@@ -5,6 +5,10 @@ NOSETESTS ?= nosetests3
 
 all: clean test
 
+init:
+	rm db.sqlite3
+	$(PYTHON3) manage.py syncdb
+
 test-django:
 	$(PYTHON3) manage.py test
 
