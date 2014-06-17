@@ -1,9 +1,15 @@
-from django.http     import HttpResponse
-from django.template import RequestContext, loader
-from webapp.models   import AccessHistory
+from django.http          import HttpResponse, HttpResponseRedirect
+from django.template      import RequestContext, loader
+from webapp.models        import AccessHistory
 from webapp.recommend.svm import SVM
 import hashlib
 
+def view_page(request, params_dict):
+    template = loader.get_template('template.html')
+    params_dict.update(get_basic_parameters(request))
+    params_dict.update(get_access_info(request, params_dict))
+    context  = RequestContext(request, params_dict)
+    return HttpResponse(template.render(context)) 
 
 def view_page_a(request):      
     params_dict = {'title': 'page-a'}
@@ -17,12 +23,10 @@ def view_page_c(request):
     params_dict = {'title': 'page-c'}
     return view_page(request, params_dict)
 
-def view_page(request, params_dict):
-    template = loader.get_template('template.html')
-    params_dict.update(get_basic_parameters(request))
-    params_dict.update(get_access_info(request, params_dict))
-    context  = RequestContext(request, params_dict)
-    return HttpResponse(template.render(context)) 
+def clear_cache(request):
+    access_history = fetch_user_access_history(request)
+    access_history.delete()
+    return HttpResponseRedirect("/page-a/")
 
 def get_basic_parameters(request):
     basic_parameters = {
