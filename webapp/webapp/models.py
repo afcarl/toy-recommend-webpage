@@ -36,7 +36,7 @@ class AccessHistory(models.Model):
             ## delete head element
             access_history_array.pop(0)
         self.history_pickle = pickle.dumps(access_history_array)
-        self.save(update_fields=['history_pickle'])
+        self.save()
 
     def summarize_history(self):
         if isinstance(self.get_history(), list):

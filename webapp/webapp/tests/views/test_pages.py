@@ -41,6 +41,12 @@ class TestPagesView(TestCase):
                     'client_ip_address': '127.0.0.1',
                     }
                 )
+    
+    def test_get_access_info(self):
+        request = self.factory.get("/", HTTP_USER_AGENT = 'Mozilla/5.0')
+        params_dict = {'title': 'page-a'}
+        result = get_access_info(request, params_dict)
+        self.assertEqual(result, {'history_summary': [1, 0, 0], 'history': ['page-a']})
 
     def test_get_client_ip(self):
         request = self.factory.get("/", HTTP_USER_AGENT = 'Mozilla/5.0')

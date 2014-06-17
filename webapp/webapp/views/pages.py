@@ -19,8 +19,26 @@ def view_page_c(request):
 def view_page(request, params_dict):
     template = loader.get_template('template.html')
     params_dict.update(get_basic_parameters(request))
+    params_dict.update(get_access_info(request, params_dict))
     context  = RequestContext(request, params_dict)
     return HttpResponse(template.render(context)) 
+
+def get_basic_parameters(request):
+    basic_parameters = {
+            'client_ip_address' : get_client_ip(request),
+            'user_agent'        : get_user_agent(request),
+            }
+    return basic_parameters 
+
+def get_access_info(request, params_dict):
+    access_history = fetch_user_access_history(request)
+    page = params_dict['title'] if 'title' in params_dict else 'page-a'
+    access_history.update_history(page)
+    access_info = {
+            'history'         : access_history.get_history(),
+            'history_summary' : access_history.summarize_history(),
+            }
+    return access_info
 
 def fetch_user_access_history(request):
     try:
@@ -35,13 +53,6 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
-
-def get_basic_parameters(request):
-    basic_parameters = {
-            'client_ip_address' : get_client_ip(request),
-            'user_agent'        : get_user_agent(request),
-            }
-    return basic_parameters 
 
 def get_user_agent(request):
     return request.META['HTTP_USER_AGENT']
