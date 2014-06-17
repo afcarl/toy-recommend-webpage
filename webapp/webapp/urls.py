@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from webapp.views.pages import page_a, page_b, page_c
+from webapp.views.pages import view_page_a, view_page_b, view_page_c
 
 urlpatterns = patterns('',
     # Examples:
@@ -12,7 +12,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^page-a/$', page_a),
-    url(r'^page-b/$', page_b),
-    url(r'^page-c/$', page_c),
+    url(r'^page-a/$', view_page_a),
+    url(r'^page-b/$', view_page_b),
+    url(r'^page-c/$', view_page_c),
 )

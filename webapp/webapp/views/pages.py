@@ -3,27 +3,30 @@ from django.template import RequestContext, loader
 from webapp.models   import AccessHistory
 import hashlib
 
-def page_a(request):      
+
+def view_page_a(request):      
+    params_dict = {'title': 'page-a'}
+    return view_page(request, params_dict)
+
+def view_page_b(request):      
+    params_dict = {'title': 'page-b'}
+    return view_page(request, params_dict)
+
+def view_page_c(request):      
+    params_dict = {'title': 'page-c'}
+    return view_page(request, params_dict)
+
+def view_page(request, params_dict):
     template = loader.get_template('template.html')
-    params = {'title': 'Page A'}
-    params.update(get_basic_parameters(request))
-    context  = RequestContext(request, params)
+    params_dict.update(get_basic_parameters(request))
+    context  = RequestContext(request, params_dict)
     return HttpResponse(template.render(context)) 
 
-def page_b(request):      
-    template = loader.get_template('template.html')
-    params = {'title': 'Page B'}
-    params.update(get_basic_parameters(request))
-    context  = RequestContext(request, params)
-    return HttpResponse(template.render(context)) 
-
-def page_c(request):      
-    template = loader.get_template('template.html')
-    params = {'title': 'Page C'}
-    params.update(get_basic_parameters(request))
-    context  = RequestContext(request, params)
-    return HttpResponse(template.render(context)) 
-
+def fetch_user_access_history(request):
+    try:
+        return AccessHistory.objects.get(key = generate_user_id_hash(request))
+    except:
+        return AccessHistory(key = generate_user_id_hash(request))
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -35,8 +38,8 @@ def get_client_ip(request):
 
 def get_basic_parameters(request):
     basic_parameters = {
-            'client_ip_address': get_client_ip(request),
-            'user_agent': get_user_agent(request),
+            'client_ip_address' : get_client_ip(request),
+            'user_agent'        : get_user_agent(request),
             }
     return basic_parameters 
 
