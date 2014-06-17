@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
+import hashlib
 
 def page_a(request):      
     template = loader.get_template('template.html')
@@ -48,3 +49,9 @@ def get_client_ip(request):
 
 def get_user_agent(request):
     return request.META['HTTP_USER_AGENT']
+
+def generate_user_id_hash(request):
+    user_agent = get_user_agent(request)
+    ip_address = get_client_ip(request)
+    key = ip_address + user_agent
+    return hashlib.sha1(key.encode()).hexdigest()
