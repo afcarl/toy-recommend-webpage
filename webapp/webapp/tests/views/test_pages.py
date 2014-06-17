@@ -11,19 +11,23 @@ class TestPagesView(TestCase):
         self.client  = Client()
         self.factory = RequestFactory()
 
-    #def test_product_index(self):
-    #    response = self.client.get("/fruits/")
-    #    nt.assert_equal(response.content, "The index")
-
-    #def test_product_show(self):
-    #    response = self.client.get("/fruits/papaya")
-    #    nt.assert_equal(response.content, "Show the papaya page")
-
-    #def test_product_add(self):
-    #    response = self.client.get("/fruits/add")
-    #    nt.assert_equal(response.content, "Add a fruit")
-
     def test_generate_user_id_hash(self):
         request = self.factory.get("/", HTTP_USER_AGENT='Mozilla/5.0')
         result = generate_user_id_hash(request)
         self.assertEqual(result, '6328c09c3f9c4817b14fddbb73d9602e1c09562e')
+
+    def test_page_a(self):
+        request = self.factory.get("/page-a/", HTTP_USER_AGENT='Mozilla/5.0')
+        response = page_a(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_page_b(self):
+        request = self.factory.get("/page-b/", HTTP_USER_AGENT='Mozilla/5.0')
+        response = page_a(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_page_c(self):
+        request = self.factory.get("/page-c/", HTTP_USER_AGENT='Mozilla/5.0')
+        response = page_a(request)
+        self.assertEqual(response.status_code, 200)
+        
