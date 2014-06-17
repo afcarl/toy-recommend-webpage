@@ -7,7 +7,7 @@ import sys
 PROJECT_HOME=os.path.dirname( os.path.abspath(__file__)) + "/../"
 sys.path.append(PROJECT_HOME)
 
-from model.svm import SVM
+from webapp.recommend.svm import SVM
 
 ## traininn
 model = SVM()
