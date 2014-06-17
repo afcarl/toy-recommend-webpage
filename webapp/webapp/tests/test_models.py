@@ -43,6 +43,32 @@ class TestAccessHistoryModel(TestCase):
         result = AccessHistory.objects.get(key="hoge").get_history()
         self.assertEqual(result, [])
 
+    def test_update_history(self):
+        access_history = AccessHistory(key="hoge", history_pickle=["page-b"])
+        access_history.save()
+        result = AccessHistory.objects.get(key="hoge")
+        self.assertEqual(result.get_history(), ["page-b"])
+        access_history.update_history("page-a")
+        result = AccessHistory.objects.get(key="hoge")
+        self.assertEqual(result.get_history(), ["page-b", "page-a"])
+
+    def test_update_history(self):
+        key = "fuga"
+        history_pickle = [
+                "page-a", "page-a", "page-a", "page-a", "page-a",
+                "page-b", "page-b", "page-b", "page-b", "page-b",
+                ]
+        access_history = AccessHistory(key=key, history_pickle=history_pickle)
+        access_history.save()
+        result = AccessHistory.objects.get(key="fuga")
+        self.assertEqual(result.get_history(), history_pickle)
+        access_history.update_history("page-c")
+        expected = [
+                "page-a", "page-a", "page-a", "page-a", "page-b",
+                "page-b", "page-b", "page-b", "page-b", "page-c",
+                ]
+        result = AccessHistory.objects.get(key="fuga")
+        self.assertEqual(result.get_history(), expected)
 
 
     def test_summarize_history(self):
