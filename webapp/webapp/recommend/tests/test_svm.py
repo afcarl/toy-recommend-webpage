@@ -14,10 +14,10 @@ def test_load_delimited_file():
     filepath = os.path.dirname(__file__) + "/data/test-data.tsv"
     data = model.load_delimited_file(filepath, "\t")
     expected = [
-            [3, 0, 9, 0], [3, 2, 8, 0], [1, 2, 3, 2],
-            [3, 0, 9, 1], [2, 2, 1, 7], [2, 1, 1, 7],
-            [2, 0, 3, 6], [2, 4, 1, 5], [2, 2, 1, 7],
-            [2, 0, 2, 1]
+            [0, 9, 0], [2, 8, 0], [2, 3, 2],
+            [0, 9, 1], [2, 1, 7], [1, 1, 7],
+            [0, 3, 6], [4, 1, 5], [2, 1, 7],
+            [0, 2, 1]
             ]
     assert_equal(data.tolist(), expected)
 
@@ -39,24 +39,24 @@ def test_dump_model():
     pickled_filepath = os.path.dirname(__file__) + "/data/trained-svm.pickle"
     pickled_string = model.dump_model(pickled_filepath)
     assert(isinstance(pickled_filepath, str))
-    assert_equal(len(pickled_string), 1809)
+    assert_equal(len(pickled_string), 1734)
 
 def test_loads_model_by_pickle():
     pickled_filepath = os.path.dirname(__file__) + "/data/trained-svm.pickle"
     model = SVM()
     clf = model.load_model_by_pickle(pickled_filepath)
-    predict = clf.predict([3, 0, 9, 0])
+    predict = clf.predict([0, 9, 0])
     assert_equal(predict, [3])
 
 def test_predict_with_dumped_model():
     model = SVM()
-    target = [2, 0, 2, 1]
+    target = [0, 2, 1]
     filepath = os.path.dirname(__file__) + "/data/trained-svm.pickle"
     result = model.predict_with_dumped_model(target, filepath)
     assert_equal(result, [2])
 
 def test_predict_with_default_dumped_model():
     model = SVM()
-    target = [2, 0, 2, 1]
+    target = [0, 2, 1]
     result = model.predict_with_default_dumped_model(target)
-    assert_equal(result, [2])
+    assert_equal(result, [3])
