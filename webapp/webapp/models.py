@@ -17,9 +17,12 @@ class AccessHistory(models.Model):
 
     def get_history(self):
         try:
-            return pickle.loads(self.history_pickle)
+            value = pickle.loads(self.history_pickle)
         except:
-            return self.history_pickle
+            value = self.history_pickle
+        if not isinstance(value, list):
+            value = []
+        return value 
 
     def summarize_history(self):
         if isinstance(self.get_history(), list):
