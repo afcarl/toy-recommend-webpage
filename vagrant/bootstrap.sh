@@ -27,6 +27,7 @@ $APT_GET_INSTALL python3 python3-dev python3-numpy python3-scipy python3-nose re
 # pip update
 $APT_GET_INSTALL curl libfreetype6 libfreetype6-dev libatlas-dev libatlas-base-dev build-essential libpng12-dev
 curl -kL https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python3
+__PIP='pip3'
 __PIP_PACKAGES="
 pip pip-tools versiontools nose
 Django==1.6.5 
@@ -36,7 +37,7 @@ pymysql django-mysql-pymysql redis django-redis coverage
 for __PACKAGE in $__PIP_PACKAGES
   do
     #pip install -U "$__PACKAGE"
-    pip install "$__PACKAGE"
+    $__PIP install "$__PACKAGE"
   done
 # misc
 $APT_GET_INSTALL screen bash-completion vim
