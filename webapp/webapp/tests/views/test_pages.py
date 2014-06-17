@@ -31,6 +31,11 @@ class TestPagesView(TestCase):
         result = generate_user_id_hash(request)
         self.assertEqual(result, '6328c09c3f9c4817b14fddbb73d9602e1c09562e')
 
+    def test_get_basic_parameters(self):
+        request = self.factory.get("/page-a/", HTTP_USER_AGENT='Mozilla/5.0')
+        result = get_basic_parameters(request)
+        self.assertEqual(result, {'user_agent': 'Mozilla/5.0', 'client_ip_address': '127.0.0.1'})
+
     def test_get_client_ip(self):
         request = self.factory.get("/", HTTP_USER_AGENT = 'Mozilla/5.0')
         result  = get_client_ip(request)
