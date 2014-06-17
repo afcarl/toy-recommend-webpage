@@ -4,6 +4,7 @@ print(__doc__)
 
 import re
 import warnings
+import os
 
 import numpy as np
 import pylab as pl
@@ -42,6 +43,10 @@ class SVM():
         file.close
         return pickled_string
 
+    def dump_default_model(self):
+        filepath = self.get_default_dumped_model_path()
+        self.dump_model(filepath)
+
     def load_model_by_pickle(self, filepath):
         file = open(filepath, "rb")
         self.clf = pickle.load(file)
@@ -51,3 +56,10 @@ class SVM():
     def predict_with_dumped_model(self, target, filepath):
         clf = self.load_model_by_pickle(filepath)
         return clf.predict(target)
+
+    def predict_with_default_dumped_model(self, target):
+        filepath = self.get_default_dumped_model_path()
+        return self.predict_with_dumped_model(target, filepath)
+
+    def get_default_dumped_model_path(self):
+        return os.path.dirname(__file__) + "/../resources/trained-svm.pickle"

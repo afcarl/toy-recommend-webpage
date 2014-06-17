@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-
+# -*- coding: utf-8 -*- 
 import os
 import nose
 import warnings
@@ -54,4 +53,10 @@ def test_predict_with_dumped_model():
     target = [2, 0, 2, 1]
     filepath = os.path.dirname(__file__) + "/data/trained-svm.pickle"
     result = model.predict_with_dumped_model(target, filepath)
+    assert_equal(result, [2])
+
+def test_predict_with_default_dumped_model():
+    model = SVM()
+    target = [2, 0, 2, 1]
+    result = model.predict_with_default_dumped_model(target)
     assert_equal(result, [2])
