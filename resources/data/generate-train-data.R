@@ -27,7 +27,7 @@ train.label.data.filename <- "train-label.tsv"
 test.data.filename  <- "test-data.tsv"
 test.label.data.filename <- "test-label.tsv"
 
-write.table(x=train.data       , file=train.data.filename       , sep="\t", col.names=FALSE , row.names=FALSE)
+write.table(x=train.data[, 2:4]       , file=train.data.filename       , sep="\t", col.names=FALSE , row.names=FALSE)
 write.table(x=train.data$label , file=train.label.data.filename , sep="\t", col.names=FALSE , row.names=FALSE)
-write.table(x=test.data        , file=test.data.filename        , sep="\t", col.names=FALSE , row.names=FALSE)
+write.table(x=test.data[, 2:4]        , file=test.data.filename        , sep="\t", col.names=FALSE , row.names=FALSE)
 write.table(x=test.data$label  , file=test.label.data.filename  , sep="\t", col.names=FALSE , row.names=FALSE)
