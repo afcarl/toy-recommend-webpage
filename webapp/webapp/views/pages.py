@@ -1,6 +1,7 @@
 from django.http     import HttpResponse
 from django.template import RequestContext, loader
 from webapp.models   import AccessHistory
+from webapp.recommend.svm import SVM
 import hashlib
 
 
@@ -34,11 +35,19 @@ def get_access_info(request, params_dict):
     access_history = fetch_user_access_history(request)
     page = params_dict['title'] if 'title' in params_dict else 'page-a'
     access_history.update_history(page)
+    history = access_history.get_history()
+    history_summary = access_history.summarize_history()
+    predicted_category = predict_category(history_summary)
     access_info = {
-            'history'         : access_history.get_history(),
-            'history_summary' : access_history.summarize_history(),
+            'history'         : history, 
+            'history_summary' : history_summary,
+            'predicted_category': predicted_category,
             }
     return access_info
+
+def predict_category(history_summary):
+    model = SVM()
+    return model.predict_with_default_dumped_model(history_summary)
 
 def fetch_user_access_history(request):
     try:
