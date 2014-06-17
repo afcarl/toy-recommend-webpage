@@ -39,6 +39,8 @@ for __PACKAGE in $__PIP_PACKAGES
     #pip install -U "$__PACKAGE"
     $__PIP install "$__PACKAGE"
   done
+# R
+$APT_GET_INSTALL r-base
 # misc
 $APT_GET_INSTALL screen bash-completion vim
 
