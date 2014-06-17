@@ -5,10 +5,10 @@ NOSETESTS ?= nosetests3
 all: clean test
 
 test-code:
-	$(NOSETESTS) -s -v model
+	$(NOSETESTS) -s -v webapp
 
 test-coverage:
 	rm -rf coverage .coverage
-	$(NOSETESTS) -s -v --with-coverage model
+	$(NOSETESTS) -s -v --with-coverage webapp
 
 test: test-code test-coverage

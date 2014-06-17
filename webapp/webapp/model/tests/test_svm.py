@@ -4,7 +4,7 @@ import nose
 import warnings
 import numpy as np
 from nose.tools import *
-from model.svm  import SVM
+from webapp.model.svm  import SVM
 from sklearn    import preprocessing
 from sklearn    import svm
 

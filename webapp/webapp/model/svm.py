@@ -62,4 +62,4 @@ class SVM():
         return self.predict_with_dumped_model(target, filepath)
 
     def get_default_dumped_model_path(self):
-        return os.path.dirname(__file__) + "/../resources/trained-svm.pickle"
+        return os.path.dirname(__file__) + "/../../resources/trained-svm.pickle"
