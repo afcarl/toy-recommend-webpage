@@ -29,7 +29,7 @@ $APT_GET_INSTALL curl libfreetype6 libfreetype6-dev libatlas-dev libatlas-base-d
 curl -kL https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python3
 __PIP='pip3'
 __PIP_PACKAGES="
-pip pip-tools versiontools nose
+pip pip-tools versiontools nose==1.1.2
 Django==1.6.5 
 freetype2 matplotlib scikit-learn==0.14.1 readline
 pymysql django-mysql-pymysql redis django-redis coverage
