@@ -24,7 +24,7 @@ Trying to create a simple recommendation web system
 The IP address of the lanched machine is set as `192.168.111.228`.
 Please check `./vagrant/Vagrantfile`.
 
-```
+```shell
 cd ./vagrant
 vagrant up
 ```
@@ -35,7 +35,7 @@ vagrant up
 
 You have to execute command on your host machine.
 
-```
+```shell
 cd ./vagrant
 vagrant ssh
 ```
@@ -44,7 +44,7 @@ vagrant ssh
 
 You have to execute command on the vagrang machine.
 
-```
+```shell
 cd /vagrant/webapp
 ./sbin/runserver.sh
 ```
@@ -58,13 +58,13 @@ If you want to initialize sqlite database, execute `make init`
 You need to browse on your host machine.
 Please see also `./webapp/sbin/runserver.sh` which is the script to launch django server.
 
-```
+```shell
 curl http://192.168.111.228:8000/
 ```
 
 ## Usage
 
-At the first, access to `http://192.168.111.228.8000/page-a`, then you can see a page like the below image.
+At the first, access to `http://192.168.111.228.8000/page-a/`, then you can see a page like the below image.
 
 ![page](docs/images/page.png)
 
@@ -104,4 +104,13 @@ file = open("resources/trained-svm.pickle", "rb")
 data = pickle.load(file)
 data.predict([8, 1, 1])
 data.predict([2, 3, 5])
+```
+
+## Do Testing Python Code
+
+If you want to test python source code, and then please execute below command.
+
+```shell
+cd ./webapp/
+make test-code
 ```
